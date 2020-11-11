@@ -172,3 +172,4 @@ C:\Users\Shereif\Source\Repos\BugTrackerCICDTest2\Softmatic\obj\Debug\Softmatic.
 C:\Users\Shereif\Source\Repos\BugTrackerCICDTest2\Softmatic\obj\Debug\Softmatic.csproj.CopyComplete
 C:\Users\Shereif\Source\Repos\BugTrackerCICDTest2\Softmatic\obj\Debug\Softmatic.dll
 C:\Users\Shereif\Source\Repos\BugTrackerCICDTest2\Softmatic\obj\Debug\Softmatic.pdb
+C:\Users\Shereif\Source\Repos\BugTrackerCICDTest2\Softmatic\bin\Images\logo-black.png
