@@ -1,0 +1,657 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="BaseFrame.master.cs" Inherits="Softmatic.BaseFrame" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <%--<link rel="icon" href="img/favicon.png" type="image/png">--%>
+    <title>FundSomething</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="vendors/linericon/style.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css">
+    <link rel="stylesheet" href="vendors/lightbox/simpleLightbox.css">
+    <%--<link rel="stylesheet" href="vendors/nice-select/css/nice-select.css">--%>
+    <link rel="stylesheet" href="vendors/animate-css/animate.css">
+    <link rel="stylesheet" href="vendors/jquery-ui/jquery-ui.css">
+    <!-- main css -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <script src="https://kit.fontawesome.com/6a43d7fb10.js" crossorigin="anonymous"></script>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src='<%= ResolveUrl("~/js/jquery-3.2.1.min.js") %>'></script>
+    <script src='<%= ResolveUrl("~/js/popper.js") %>'></script>
+    <script src='<%= ResolveUrl("~/js/bootstrap.min.js") %>'></script>
+    <script src='<%= ResolveUrl("~/vendors/jquery-ui/jquery-ui.js") %>'></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700' rel='stylesheet' type='text/css' />
+
+    <style>
+        .button-default {
+            -webkit-transition: 0.25s ease-out 0.1s color;
+            -moz-transition: 0.25s ease-out 0.1s color;
+            -o-transition: 0.25s ease-out 0.1s color;
+            transition: 0.25s ease-out 0.1s color;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            margin: 0;
+            outline: none;
+            position: relative;
+        }
+
+        .show-notifications {
+            position: relative;
+        }
+
+            .show-notifications:hover #icon-bell,
+            .show-notifications:focus #icon-bell,
+            .show-notifications.active #icon-bell {
+                fill: #34495e;
+            }
+
+            .show-notifications #icon-bell {
+                fill: #7f8c8d;
+            }
+
+            .show-notifications .notifications-count {
+                -moz-border-radius: 50%;
+                -webkit-border-radius: 50%;
+                border-radius: 50%;
+                -moz-background-clip: padding-box;
+                -webkit-background-clip: padding-box;
+                background-clip: padding-box;
+                background: #ea2c58;
+                color: #fefefe;
+                font: normal 0.85em 'Lato';
+                height: 16px;
+                line-height: 1.55em;
+                position: absolute;
+                right: -10%;
+                text-align: center;
+                top: 25%;
+                width: 16px;
+            }
+
+        .notifications.active {
+            opacity: 1;
+            z-index: 99999;
+        }
+
+        .notifications {
+            -moz-border-radius: 2px;
+            -webkit-border-radius: 2px;
+            border-radius: 2px;
+            -moz-background-clip: padding-box;
+            -webkit-background-clip: padding-box;
+            background-clip: padding-box;
+            -webkit-transition: 0.25s ease-out 0.1s opacity;
+            -moz-transition: 0.25s ease-out 0.1s opacity;
+            -o-transition: 0.25s ease-out 0.1s opacity;
+            transition: 0.25s ease-out 0.1s opacity;
+            background: #ecf0f1;
+            border: 1px solid #bdc3c7;
+            left: 10px;
+            opacity: 0;
+            position: absolute;
+            top: -999px;
+        }
+
+            .notifications:after {
+                border: 10px solid transparent;
+                border-bottom-color: #ea2c58;
+                content: '';
+                display: block;
+                height: 0;
+                right: 10px;
+                position: absolute;
+                top: -20px;
+                width: 0;
+            }
+
+            .notifications h3,
+            .notifications .show-all {
+                background: #ea2c58;
+                color: #fefefe;
+                margin: 0;
+                padding: 10px;
+                width: 350px;
+            }
+
+            .notifications h3 {
+                cursor: default;
+                font-size: 15px !important;
+                font-weight: normal;
+            }
+
+            .notifications .show-all {
+                display: block;
+                text-align: center;
+                text-decoration: none;
+            }
+
+                .notifications .show-all:hover,
+                .notifications .show-all:focus {
+                    text-decoration: underline;
+                }
+
+            .notifications .notifications-list {
+                list-style: none;
+                margin: 0;
+                overflow: hidden;
+                padding: 0;
+            }
+
+                .notifications .notifications-list .item {
+                    -webkit-transition: -webkit-transform 0.25s ease-out 0.1s;
+                    -moz-transition: -moz-transform 0.25s ease-out 0.1s;
+                    -o-transition: -o-transform 0.25s ease-out 0.1s;
+                    transition: transform 0.25s ease-out 0.1s;
+                    border-top: 1px solid #bdc3c7;
+                    color: #7f8c8d;
+                    cursor: default;
+                    display: block;
+                    padding: 10px;
+                    position: relative;
+                    white-space: nowrap;
+                    width: 350px;
+                }
+
+                    .notifications .notifications-list .item:before,
+                    .notifications .notifications-list .item .details,
+                    .notifications .notifications-list .item .button-dismiss {
+                        display: inline-block;
+                        vertical-align: middle;
+                    }
+
+                    .notifications .notifications-list .item:before {
+                        -moz-border-radius: 50%;
+                        -webkit-border-radius: 50%;
+                        border-radius: 50%;
+                        -moz-background-clip: padding-box;
+                        -webkit-background-clip: padding-box;
+                        background-clip: padding-box;
+                        background: #ea2c58;
+                        content: '';
+                        height: 8px;
+                        width: 8px;
+                    }
+
+                    .notifications .notifications-list .item .details {
+                        margin-left: 10px;
+                        white-space: normal;
+                        width: 280px;
+                        font-size: 14px;
+                    }
+
+                        .notifications .notifications-list .item .details .title,
+                        .notifications .notifications-list .item .details .date {
+                            display: block;
+                        }
+
+                        .notifications .notifications-list .item .details .date {
+                            color: #95a5a6;
+                            font-size: 0.85em;
+                            margin-top: 3px;
+                        }
+
+                    .notifications .notifications-list .item .button-dismiss {
+                        color: #bdc3c7;
+                        font-size: 2.25em;
+                    }
+
+                        .notifications .notifications-list .item .button-dismiss:hover,
+                        .notifications .notifications-list .item .button-dismiss:focus {
+                            color: #95a5a6;
+                        }
+
+                    .notifications .notifications-list .item.no-data {
+                        display: none;
+                        text-align: center;
+                    }
+
+                        .notifications .notifications-list .item.no-data:before {
+                            display: none;
+                        }
+
+                    .notifications .notifications-list .item.expired {
+                        color: #bdc3c7;
+                    }
+
+                        .notifications .notifications-list .item.expired:before {
+                            background: #bdc3c7;
+                        }
+
+                        .notifications .notifications-list .item.expired .details .date {
+                            color: #bdc3c7;
+                        }
+
+                    .notifications .notifications-list .item.dismissed {
+                        -webkit-transform: translateX(100%);
+                        -moz-transform: translateX(100%);
+                        -ms-transform: translateX(100%);
+                        -o-transform: translateX(100%);
+                        transform: translateX(100%);
+                    }
+
+            .notifications.empty .notifications-list .no-data {
+                display: block;
+                padding: 10px;
+                font-size: 14px !important;
+            }
+        /* variables */
+        /* mixins */
+    </style>
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <asp:ContentPlaceHolder ID="script" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <div id="loadingGif" class="overlay">
+        <div class="overlay-content">
+            <img style="width: 15%" src="/img/loading.gif" alt="Loading..." />
+        </div>
+    </div>
+    <!--================Header Menu Area =================-->
+    <header class="header_area">
+        <div class="main_menu">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="row ml-0 w-100">
+                    <div class="col-lg-1 pr-0">
+                    </div>
+                    <div class="col-lg-3 pr-0">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <a class="navbar-brand logo_h" href="/index.aspx">
+                            <%--<img src='<%= ResolveUrl("~/img/logo.png") %>' alt="">--%>
+                            <img src="/img/logo.png" alt="">
+                        </a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="col-lg-7 pr-0">
+                        <div class="collapse navbar-collapse offset pull-right" id="navbarSupportedContent">
+                            <ul class="nav navbar-nav center_nav">
+                                <li class="nav-item ">
+                                    <a class="nav-link" href="/index.aspx">home</a>
+                                </li>
+                                <li class="nav-item ">
+                                    <a class="nav-link" href="/pages/aboutUs.aspx">about us</a>
+                                </li>
+                                <li class="nav-item ">
+                                    <a class="nav-link" href="/pages/campaignList.aspx">browse</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/pages/contact.aspx">contact us</a>
+                                </li>
+                                <asp:PlaceHolder runat="server" ID="plhLogin" Visible="false">
+                                    <li class="nav-item" runat="server" id="navStaff" visible="false">
+                                        <a class="nav-link" href="/pages/campaignAdmin.aspx">bug management</a>
+                                    </li>
+                                    <li class="nav-item" runat="server" id="navAdmin" visible="false">
+                                        <a class="nav-link" href="/pages/userList.aspx">user management</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="button-default nav-link dropdown-toggle show-notifications active js-show-notifications">
+                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="30" height="32" viewBox="0 0 30 32">
+                                                <defs>
+                                                    <g id="icon-bell">
+                                                        <path class="path1" d="M15.143 30.286q0-0.286-0.286-0.286-1.054 0-1.813-0.759t-0.759-1.813q0-0.286-0.286-0.286t-0.286 0.286q0 1.304 0.92 2.223t2.223 0.92q0.286 0 0.286-0.286zM3.268 25.143h23.179q-2.929-3.232-4.402-7.348t-1.473-8.652q0-4.571-5.714-4.571t-5.714 4.571q0 4.536-1.473 8.652t-4.402 7.348zM29.714 25.143q0 0.929-0.679 1.607t-1.607 0.679h-8q0 1.893-1.339 3.232t-3.232 1.339-3.232-1.339-1.339-3.232h-8q-0.929 0-1.607-0.679t-0.679-1.607q3.393-2.875 5.125-7.098t1.732-8.902q0-2.946 1.714-4.679t4.714-2.089q-0.143-0.321-0.143-0.661 0-0.714 0.5-1.214t1.214-0.5 1.214 0.5 0.5 1.214q0 0.339-0.143 0.661 3 0.357 4.714 2.089t1.714 4.679q0 4.679 1.732 8.902t5.125 7.098z" />
+                                                    </g>
+                                                </defs>
+                                                <g fill="#000000">
+                                                    <use xlink:href="#icon-bell" transform="translate(0 0)"></use>
+                                                </g>
+                                            </svg>
+                                            <div class="notifications-count js-count" style="display: none"></div>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item submenu dropdown">
+                                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                            <%--<img src='<%= ResolveUrl("~/img/icons/user.png") %>' alt="">--%>
+                                            <img src="/img/icons/user.png" alt="">
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/pages/userProfile.aspx">My Account</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="javascript:logout()">Logout</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </asp:PlaceHolder>
+                                <li class="nav-item" runat="server" id="loginMenu">
+                                    <a class="main_btn" href="/pages/login.aspx">Login / Register</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-1 pr-0">
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <!--================Header Menu Area =================-->
+
+    <div id="pageContent">
+        <asp:ContentPlaceHolder ID="bodyContent" runat="server">
+        </asp:ContentPlaceHolder>
+    </div>
+
+    <!--================ Start Footer Area  =================-->
+    <footer class="footer-area section_gap">
+        <div class="single-footer-widget">
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <div class="row">
+                        <div class="col-lg-1 col-md-1">
+                        </div>
+                        <div class="col-lg-3 col-md-3">
+                            <div style="float: left;">
+                                <img src="/img/icons/info.png" alt="">&nbsp;&nbsp;&nbsp;&nbsp;
+                            </div>
+                            <div>
+                                <h6 class="footer_title">About Us</h6>
+                                <a href="/pages/aboutUs.aspx">What is FundSomething</a>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3">
+                            <div style="float: left;">
+                                <img src="/img/icons/question.png" alt="">&nbsp;&nbsp;&nbsp;&nbsp;
+                            </div>
+                            <div>
+                                <h6 class="footer_title">Get Help</h6>
+                                <a href="/pages/faq.aspx">FAQ</a>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4">
+                            <div>
+                                <h6 class="footer_title">Contact us</h6>
+                                <img src="/img/icons/phone.png" style="width: 20px; height: 20px;" />&nbsp;&nbsp; +65 6248 9746 &nbsp;&nbsp;|&nbsp;&nbsp;  
+						        <img src="/img/icons/newsletter.png" style="width: 20px; height: 20px;" />&nbsp;&nbsp; <a href="mailto: fundsomething.softmatic@gmail.com" />fundsomething.softmatic@gmail.com
+                            </div>
+                        </div>
+                        <div class="col-lg-1 col-md-1">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--================ End Footer Area  =================-->
+
+    <!-- Optional JavaScript -->
+    <%--<script src='<%= ResolveUrl("~/vendors/nice-select/js/jquery.nice-select.min.js") %>'></script>--%>
+    <script src='<%= ResolveUrl("~/vendors/isotope/isotope-min.js") %>'></script>
+    <script src='<%= ResolveUrl("~/vendors/owl-carousel/owl.carousel.min.js") %>'></script>
+    <script src='<%= ResolveUrl("~/js/jquery.ajaxchimp.min.js") %>'></script>
+    <script src='<%= ResolveUrl("~/js/mail-script.js") %>'></script>
+
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
+    <script src='<%= ResolveUrl("~/js/custom.js") %>'></script>
+
+    <!--notification-->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.2/mustache.min.js'></script>
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+        if (!$(location).attr('pathname').includes('/campaignAdmin.aspx')) {
+            var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+            (function () {
+                var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+                s1.async = true;
+                s1.src = 'https://embed.tawk.to/5eecd0689e5f69442290ec4d/default';
+                s1.charset = 'UTF-8';
+                s1.setAttribute('crossorigin', '*');
+                s0.parentNode.insertBefore(s1, s0);
+            })();
+        }
+    </script>
+    <!--End of Tawk.to Script-->
+
+    <!-- 
+To collect end-user usage analytics about your application, 
+insert the following script into each page you want to track.
+Place this code immediately before the closing </head> tag,
+and before any other scripts. Your first data will appear 
+automatically in just a few seconds.
+-->
+    <%--<script type="text/javascript">
+        var appInsights = window.appInsights || function (a) {
+            function b(a) { c[a] = function () { var b = arguments; c.queue.push(function () { c[a].apply(c, b) }) } } var c = { config: a }, d = document, e = window; setTimeout(function () { var b = d.createElement("script"); b.src = a.url || "https://az416426.vo.msecnd.net/scripts/a/ai.0.js", d.getElementsByTagName("script")[0].parentNode.appendChild(b) }); try { c.cookie = d.cookie } catch (a) { } c.queue = []; for (var f = ["Event", "Exception", "Metric", "PageView", "Trace", "Dependency"]; f.length;)b("track" + f.pop()); if (b("setAuthenticatedUserContext"), b("clearAuthenticatedUserContext"), b("startTrackEvent"), b("stopTrackEvent"), b("startTrackPage"), b("stopTrackPage"), b("flush"), !a.disableExceptionTracking) { f = "onerror", b("_" + f); var g = e[f]; e[f] = function (a, b, d, e, h) { var i = g && g(a, b, d, e, h); return !0 !== i && c["_" + f](a, b, d, e, h), i } } return c
+        }({
+            instrumentationKey: "b90f9c34-2871-4043-892c-e6a34e9b8fa4"
+        });
+
+        window.appInsights = appInsights, appInsights.queue && 0 === appInsights.queue.length && appInsights.trackPageView();
+    </script>--%>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#pageContent').css('min-height', $(window).height() - $('footer').outerHeight(true));
+
+            var pageClicked = window.location.pathname;
+
+            $(".nav-item").each(function () {
+                $(this).removeClass("active");
+
+                if (pageClicked == $(this).children().attr("href")) {
+                    $(this).addClass("active");
+                }
+            });
+
+            if ($('#icon-bell').length > 0 && !$('#notificationPanel').hasClass('active')) {
+                var today = new Date();
+                generateItems(today);
+            }
+
+            setInterval(function () {
+                if ($('#icon-bell').length > 0 && !$('#notificationPanel').hasClass('active')) {
+                    var today = new Date();
+                    generateItems(today);
+                }
+            }, 60000);
+        });
+
+        function logout() {
+            $.ajax({
+                type: "POST",
+                url: "../Common.asmx/logout",
+                data: '',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    Swal.fire({
+                        icon: response.d.isSuccess ? 'success' : error,
+                        text: response.d.returnMsg
+                    });
+
+                    window.location.href = '/index.aspx';
+                },
+                error: function (response) {
+                    console.log(response);
+                },
+                failure: function (response) {
+                    console.log(response);
+                }
+            });
+        }
+
+        function refreshNotifications(items, today) {
+
+            var cssTransitionEnd = getTransitionEnd();
+            var container = $('body');
+
+            /*items.sort(function (a, b) {
+                if (a.isExpired === b.isExpired) {
+                    return a.date - b.date;
+                } else {
+                    return (b.isExpired ? 0 : 1) - (a.isExpired ? 0 : 1);
+                }
+            });*/
+
+            var html = `<div id="notificationPanel" class="notifications js-notifications">
+	                        <h3>Notifications</h3>
+	                        <ul class="notifications-list">
+		                        <li class="item no-data">You don't have notifications</li>`
+
+            for (i = 0; i < items.length; i++) {
+                html += `<li class="item js-item" data-id="` + items[i].id + `">
+			                <div class="details"><span class="title">`+ items[i].title + `</span><span class="date">` + items[i].formattedDate + `</span></div>
+			                <button type="button" class="button-default button-dismiss js-dismiss" onclick="return markNotificationAsRead(`+ items[i].id + `)">×</button>
+		                </li>`
+            }
+
+            html += `</ul> </div>`;
+
+            container
+                .append(html)
+                .find('.js-count').attr('data-count', items.length).html(items.length).end()
+                .on('click', '.js-show-notifications', function (event) {
+                    $(event.currentTarget).closest('.js-show-notifications').toggleClass('active').blur();
+                    $('#notificationPanel').toggleClass('active').blur();
+
+                    if ($('#icon-bell').length > 0) {
+                        $('.notifications.active').css('top', $('#icon-bell').position().top + 45);
+                        $('.notifications.active').css('left', $('#icon-bell').position().left - 315);
+                    }
+
+                    return true;
+                })
+                .on('click', '.js-dismiss', function (event) {
+                    var item = $(event.currentTarget).parents('.js-item');
+
+                    var removeItem = function () {
+                        item[0].removeEventListener(cssTransitionEnd, removeItem, false);
+                        item.remove();
+
+                        /* update notifications' counter */
+                        var countElement = container.find('.js-count');
+                        var prevCount = +countElement.attr('data-count');
+                        var newCount = prevCount - 1;
+                        countElement
+                            .attr('data-count', newCount)
+                            .html(newCount);
+
+                        if (newCount === 0) {
+                            countElement.remove();
+                            container.find('.js-notifications').addClass('empty');
+                        }
+                    };
+
+                    item[0].addEventListener(cssTransitionEnd, removeItem, false);
+                    item.addClass('dismissed');
+                    return true;
+                });
+
+            if (items.length > 0) {
+                $('.js-count').show();
+            } else {
+                container.find('.js-notifications').addClass('empty');
+            }
+        }
+
+        function changeJsonDateTimeToJavaScriptDateTime(jsonDate) {
+            var dateString = jsonDate.substr(6);
+
+            var javaScriptTime = new Date(parseInt(dateString));
+
+            return javaScriptTime;
+        }
+
+        function generateItems(today) {
+            var notiList = [];
+
+            $.ajax({
+                type: "POST",
+                url: "/Common.asmx/getNotificationList",
+                data: '',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                global: false,
+                success: function (response) {
+                    var res = response.d;
+                    for (i = 0; i < res.length; i++) {
+                        var noti = {
+                            id: res[i].notificationId, title: res[i].content, date: changeJsonDateTimeToJavaScriptDateTime(res[i].createdOn),
+                            formattedDate: changDateTimeFormat(res[i].createdOn), isExpired: (changeJsonDateTimeToJavaScriptDateTime(res[i].createdOn) < today)
+                        };
+
+                        notiList.push(noti);
+                    }
+                    refreshNotifications(notiList, today);
+                },
+                error: function (response) {
+                    console.log(response);
+                    showErrorMsg();
+                },
+                failure: function (response) {
+                    console.log(response);
+                    showErrorMsg();
+                }
+            });
+        }
+
+        function markNotificationAsRead(notiId) {
+            $.ajax({
+                type: "POST",
+                url: "/Common.asmx/markNotificationAsRead",
+                data: JSON.stringify({ 'notificationId': notiId }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    console.log(response)
+                },
+                error: function (response) {
+                    console.log(response);
+                    showErrorMsg();
+                },
+                failure: function (response) {
+                    console.log(response);
+                    showErrorMsg();
+                }
+            });
+
+            return false;
+        }
+
+        function getTransitionEnd() {
+            var supportedStyles = window.document.createElement('fake').style;
+            var properties = {
+                'webkitTransition': { 'end': 'webkitTransitionEnd' },
+                'oTransition': { 'end': 'oTransitionEnd' },
+                'msTransition': { 'end': 'msTransitionEnd' },
+                'transition': { 'end': 'transitionend' }
+            };
+
+            var match = null;
+            Object.getOwnPropertyNames(properties).forEach(function (name) {
+                if (!match && name in supportedStyles) {
+                    match = name;
+                    return;
+                }
+            });
+
+            return (properties[match] || {}).end;
+        }
+    </script>
+
+    <asp:ContentPlaceHolder ID="script2" runat="server">
+    </asp:ContentPlaceHolder>
+
+</body>
+</html>
