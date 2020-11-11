@@ -85,6 +85,7 @@
     <Content Include="css\style.css" />
     <Content Include="css\tabNav.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="Images\logo-black.png" />
     <Content Include="Images\User\defaultPic.jpg" />
     <Content Include="img\about-us.jpg" />
     <Content Include="img\banner-bg.jpg" />
