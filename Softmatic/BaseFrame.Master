@@ -287,10 +287,7 @@
                                     <a class="nav-link" href="/index.aspx">home</a>
                                 </li>
                                 <li class="nav-item ">
-                                    <a class="nav-link" href="/pages/aboutUs.aspx">about us</a>
-                                </li>
-                                <li class="nav-item ">
-                                    <a class="nav-link" href="/pages/campaignList.aspx">browse</a>
+                                    <a class="nav-link" href="/pages/bugList.aspx">browse</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="/pages/contact.aspx">contact us</a>
@@ -359,15 +356,7 @@
                     <div class="row">
                         <div class="col-lg-1 col-md-1">
                         </div>
-                        <div class="col-lg-3 col-md-3">
-                            <div style="float: left;">
-                                <img src="/img/icons/info.png" alt="">&nbsp;&nbsp;&nbsp;&nbsp;
-                            </div>
-                            <div>
-                                <h6 class="footer_title">About Us</h6>
-                                <a href="/pages/aboutUs.aspx">What is FundSomething</a>
-                            </div>
-                        </div>
+
                         <div class="col-lg-3 col-md-3">
                             <div style="float: left;">
                                 <img src="/img/icons/question.png" alt="">&nbsp;&nbsp;&nbsp;&nbsp;
@@ -381,7 +370,7 @@
                             <div>
                                 <h6 class="footer_title">Contact us</h6>
                                 <img src="/img/icons/phone.png" style="width: 20px; height: 20px;" />&nbsp;&nbsp; +65 6248 9746 &nbsp;&nbsp;|&nbsp;&nbsp;  
-						        <img src="/img/icons/newsletter.png" style="width: 20px; height: 20px;" />&nbsp;&nbsp; <a href="mailto: fundsomething.softmatic@gmail.com" />fundsomething.softmatic@gmail.com
+						        <img src="/img/icons/newsletter.png" style="width: 20px; height: 20px;" />&nbsp;&nbsp; <a href="mailto: csit314.randomguys@gmail.com" />csit314.randomguys@gmail.com
                             </div>
                         </div>
                         <div class="col-lg-1 col-md-1">

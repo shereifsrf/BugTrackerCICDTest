@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/BaseFrame.Master" AutoEventWireup="true" CodeBehind="userProfile.aspx.cs" Inherits="Softmatic.pages.userProfile" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/BaseFrame.Master" AutoEventWireup="true" CodeBehind="myCase.aspx.cs" Inherits="Softmatic.pages.userProfile" %>
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
@@ -99,13 +99,13 @@
                     <nav class="cd-tabs__navigation">
                         <ul class="cd-tabs__list">
                             <li>
-                                <a href="#tab-profile" class="cd-tabs__item">
+                                <a href="#tab-profile" class="cd-tabs__item cd-tabs__item--selected">
                                     <span>Profile Details</span>
                                 </a>
                             </li>
                             <asp:PlaceHolder runat="server" ID="userTabs">
                                 <li id="caseTab">
-                                    <a href="#tab-case" class="cd-tabs__item cd-tabs__item--selected">
+                                    <a href="#tab-case" class="cd-tabs__item">
                                         <span>My Case</span>
                                     </a>
                                 </li>
@@ -115,7 +115,7 @@
                     </nav>
 
                     <ul class="cd-tabs__panels">
-                        <li id="tab-profile" class="cd-tabs__panel text-component">
+                        <li id="tab-profile" class="cd-tabs__panel cd-tabs__panel--selected text-component">
                             <%--<i class="fa fa-envelope" id="lnkMsg" style="float:right;" onclick="openMessageDialog($(this).attr('value'))"></i>--%>
                             <form>
                                 <div style="text-align: center">
@@ -153,7 +153,7 @@
                                 </div>
                             </form>
                         </li>
-                        <li id="tab-case" class="cd-tabs__panel cd-tabs__panel--selected text-component ">
+                        <li id="tab-case" class="cd-tabs__panel text-component">
                             <div id="toolbar">
                                 <button id="add" class="btn btn-primary" onclick="openNewBugDialog();">
                                     Report Bug
