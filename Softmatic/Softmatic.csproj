@@ -88,6 +88,7 @@
     <Content Include="Images\logo-black.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\logo.png" />
     <Content Include="Images\User\defaultPic.jpg" />
     <Content Include="img\about-us.jpg" />
     <Content Include="img\banner-bg.jpg" />
