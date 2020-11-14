@@ -18,6 +18,7 @@ namespace Softmatic.pages
                 if (Data.User.isLogin())
                 {
                     commentForm.Visible = true;
+                    currentUserRole.Value = HttpContext.Current.Session["userRole"]?.ToString();
                 }
                 else
                 {
@@ -109,10 +110,23 @@ namespace Softmatic.pages
             else
             {
                 return Data.Bug.AssignDeveloper(bugId, devId.Value);
-
             }
         }
 
+        [WebMethod(EnableSession = true)]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public static bool ResolveBug(int bugId)
+        {
+            return Data.Bug.ResolveBug(bugId);
+        }
+
+        [WebMethod(EnableSession = true)]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public static bool ApproveAndCloseBug(int bugId)
+        {
+            var reviewer = Convert.ToInt32(HttpContext.Current.Session["userId"]);
+            return Data.Bug.AproveBugFix(bugId, reviewer);
+        }
     }
 
 }

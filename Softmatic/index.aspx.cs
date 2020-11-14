@@ -11,7 +11,17 @@ namespace Softmatic
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                if (Data.User.isLogin())
+                {
+                    currentUserRole.Value = HttpContext.Current.Session["userRole"]?.ToString();
+                }
+                else
+                {
+                    Response.Redirect("pages/login.aspx");
+                }
+            }
         }
     }
 }
