@@ -42,7 +42,7 @@
     <script src="../js/slider.js"></script>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="bodyContent" runat="server">
-
+    <input id="currentUserRole" runat="server" />
     <!--================Home Banner Area =================-->
     <section class="banner_area">
         <div class="banner_inner d-flex align-items-center">
@@ -79,22 +79,28 @@
                                 </pre>
                             </div>
                         </div>
+                        <%--Bug Info Space--%>
                         <div class="comments-area">
                             <h4 id="">Bug Info</h4>
                             <div class="row">
-                                <h5 class="col mt-2">Bug Status : </h5>
-                                <h5 class="col mt-2"> </h5>
+                                <h5 class="col mt-2" >Bug Status : </h5>
+                                <h5 class="col mt-2"><span id="BugStatusLbl" style="color:green"></span></h5>
                             </div>
                             <div class="row">
                                 <h5 class="col mt-2">Developer  : </h5>
-                                <select class="form-control col-md-6" id="DevListDDL">
+                                <select class="form-control col-md-6 d-none" id="DevListDDL" >
                                     <option>Not Assigned</option>
                                 </select>
+                                <h5 class="col mt-2 d-none" style="color:orange" id="DevLbl"></h5>
                             </div>
                             <div class="row justify-content-md-end">
-                                <input class="btn btn-success col-md-2 align-content-end justify-content-end justify-content-md-end" onclick="AssignDeveloper();" value="Submit" />
+                                <input class="btn btn-success col-md-3 align-content-end justify-content-end justify-content-md-end d-none" id="DevAssignBtn" onclick="AssignDeveloper();" value="Assign Developer" />
+                                <input class="btn btn-success col-md-3 align-content-end justify-content-end justify-content-md-end d-none" id="ResolveBtn" onclick="BugResolved();" value="Bug Resolved" />
+                                <input class="btn btn-success col-md-4 align-content-end justify-content-end justify-content-md-end d-none" id="CloseBugBtn" onclick="CloseBug();" value="Approve Fix and Close Bug" />
+                                <input class="btn btn-success col-md-3 align-content-end justify-content-end justify-content-md-end d-none" id="RejectBuBtn" onclick="RejectBug();" value="Reject Bug Fix" />
                             </div>
                         </div>
+                        <%--Bug Info End--%> 
                         <div class="comments-area">
                             <h4 id="hdCommentCount">Comments</h4>
                             <div id="divComments">
@@ -141,6 +147,7 @@
 <asp:Content ID="Content4" ContentPlaceHolderID="script2" runat="server">
     <script>
         var bugId;
+        var status;
 
         $(function () {
             bugId = getUrlParam('bugId', 0);
@@ -163,7 +170,8 @@
                         $('#lblCategory').text(response.d.category);
                         $('#lblDescription').text(response.d.description);
                         $('#lblCreatedBy, #lblUserName').text(response.d.createdBy);
-
+                        $('#BugStatusLbl').html(response.d.status);
+                        status = response.d.status;
                         //Get Developers and set the assigned dev
                         getAllDevListAndParseItInSelect(response.d.developerId);
 
@@ -315,9 +323,39 @@
                     for (var i = 0; i < data.length; i++) {
                         tempHtml += '<option value="' + data[i].UserId + '">' + data[i].UserName+'</option>';
                     }
-
+                    debugger;
                     $("#DevListDDL").html(tempHtml);
                     $("#DevListDDL").val(assignedDev);
+                    $("#DevLbl").html($('#DevListDDL option:selected').text());
+
+                    var role = $('#bodyContent_currentUserRole').val();
+
+                    if (role == 'adm' || role == 'tgi')
+                    {
+                        $('#DevListDDL').removeClass('d-none');
+                        $('#DevLbl').addClass('d-none');
+                        $("#DevAssignBtn").removeClass('d-none');
+                    }
+                    else
+                    {
+                        $('#DevListDDL').addClass('d-none');
+                        $('#DevLbl').removeClass('d-none');
+                        $("#DevAssignBtn").addClass('d-none');
+                    }
+
+                    if (status == "In-Progress") {
+                        if (role == 'adm' || role == 'dvp') {
+                            $('#ResolveBtn').removeClass('d-none')
+                        }
+                    }
+
+                    if (status == "Resolve") {
+                        if (role == 'adm' || role == 'rvr') {
+                            $('#CloseBugBtn').removeClass('d-none');
+                            $('#RejectBugBtn').removeClass('d-none');
+                        }
+                    }
+
                 },
                 error: function (response) {
                     console.log(JSON.stringify(response));
@@ -332,6 +370,8 @@
         }
 
         function AssignDeveloper() {
+            //<input class="btn btn-success col-md-2 align-content-end justify-content-end justify-content-md-end d-none" id="DevAssignBtn" onclick="AssignDeveloper();" value="Assign Developer" />
+
             var devId = $("#DevListDDL").val();
             var data = { 'devId': devId, 'bugId': bugId };
 
@@ -343,10 +383,19 @@
                 dataType: "json",
                 success: function (response) {
                     console.log(JSON.stringify(response));
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Successsfully Assigned'
-                    })
+                    if (devId == "0" || devId == null) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Successsfully UnAssigned'
+                        })
+                    }
+                    else {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Successsfully Assigned'
+                        })
+                    }
+                    location.reload();
                 },
                 error: function (response) {
                     console.log(JSON.stringify(response));
@@ -359,6 +408,71 @@
             });
 
             return false;
+
+        }
+
+        function BugResolved() {
+            var data = {'bugId': bugId };
+
+            $.ajax({
+                type: "POST",
+                url: "bugDetails.aspx/ResoveBug",
+                data: JSON.stringify(data),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    console.log(JSON.stringify(response));
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Successsfully Resolved'
+                    });
+                    location.reload();
+                },
+                error: function (response) {
+                    console.log(JSON.stringify(response));
+                    showErrorMsg();
+                },
+                failure: function (response) {
+                    console.log(JSON.stringify(response));
+                    showErrorMsg()
+                }
+            });
+
+            return false;
+        }
+
+        function CloseBug() {
+            var data = { 'bugId': bugId };
+
+            $.ajax({
+                type: "POST",
+                url: "bugDetails.aspx/ApproveAndCloseBug",
+                data: JSON.stringify(data),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    console.log(JSON.stringify(response));
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Bug is closed successsfully !'
+                    });
+                    location.reload();
+                },
+                error: function (response) {
+                    console.log(JSON.stringify(response));
+                    showErrorMsg();
+                },
+                failure: function (response) {
+                    console.log(JSON.stringify(response));
+                    showErrorMsg()
+                }
+            });
+
+            return false;
+        }
+
+        function RejectBug() {
+            //<input class="btn btn-success col-md-2 align-content-end justify-content-end justify-content-md-end d-none" id="RejectBugBtn" onclick="RejectBug();" value="Reject Bug Fix" />
 
         }
 

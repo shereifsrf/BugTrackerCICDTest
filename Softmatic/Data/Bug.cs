@@ -80,6 +80,7 @@ namespace Softmatic.Data
                 result.title = reader["title"].ToString();
                 result.description = reader["description"].ToString();
                 result.createdBy = reader["createdBy"].ToString();
+                result.status = reader["status"].ToString();
                 result.createdByUserId = Convert.ToInt32(reader["createdByUserId"].ToString());
                 /*                result.status = reader["status"].ToString();
                 */
@@ -337,5 +338,68 @@ namespace Softmatic.Data
             Data.Common.execSQLRetunResult("sp_updateBugDeveloper @bugId, @devId", parameters, true);
             return true;
         }
+
+        public static List<Model.Bug.BugDetails> getMyBugListForDeveloper(int userId)
+        {
+            List<Model.Bug.BugDetails> result = new List<Model.Bug.BugDetails>();
+
+            List<Model.Common.sqlParameter> parameters = new List<Model.Common.sqlParameter>();
+
+            parameters.Add(new sqlParameter("@userId", userId));
+
+            var reader = Data.Common.execSQLReader("sp_getMyBugListForDev @userId", parameters);
+
+            while (reader.Read())
+            {
+                Model.Bug.BugDetails bug = new Model.Bug.BugDetails();
+
+                bug.bugId = Convert.ToInt32(reader["bugId"].ToString());
+                bug.title = reader["title"].ToString();
+                bug.status = reader["status"].ToString();
+                bug.createdBy = reader["createdBy"].ToString();
+                bug.description = reader["description"].ToString();
+                bug.createdOn = Convert.ToDateTime(reader["createdOn"].ToString());
+
+
+                result.Add(bug);
+            }
+
+            reader.Close();
+
+
+            return result;
+        }
+
+        public static bool ResolveBug(int bugId)
+        {
+            List<Model.Common.sqlParameter> parameters = new List<Model.Common.sqlParameter>();
+
+            parameters.Add(new sqlParameter("@bugId", bugId));
+
+            Data.Common.execSQLRetunResult("sp_ResolveBug @bugId", parameters, true);
+            return true;
+        }
+
+        public static bool AproveBugFix(int bugId, int reviewerId)
+        {
+            List<Model.Common.sqlParameter> parameters = new List<Model.Common.sqlParameter>();
+
+            parameters.Add(new sqlParameter("@bugId", bugId));
+            parameters.Add(new sqlParameter("@reviewer", reviewerId));
+
+            Data.Common.execSQLRetunResult("sp_ApproveAndCloseBug @bugId, @reviewer", parameters, true);
+            return true;
+        }
+
+        public static bool RejectBugFix(int bugId)
+        {
+            List<Model.Common.sqlParameter> parameters = new List<Model.Common.sqlParameter>();
+
+            parameters.Add(new sqlParameter("@bugId", bugId));
+
+            Data.Common.execSQLRetunResult("sp_ResolveBug @bugId", parameters, true);
+            return true;
+         }
+
     }
 }

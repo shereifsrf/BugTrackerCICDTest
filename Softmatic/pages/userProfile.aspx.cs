@@ -104,9 +104,13 @@ namespace Softmatic.pages
             List<Model.Bug.BugDetails> result = new List<Model.Bug.BugDetails>();
 
             int userId = Convert.ToInt32(HttpContext.Current.Session["userId"]);
-            result = Data.Bug.getMyBugList(userId);
 
-            return result;
+            if (HttpContext.Current.Session["userRole"]?.ToString() == "dvp")
+            {
+                return  Data.Bug.getMyBugListForDeveloper(userId);
+            }
+
+            return Data.Bug.getMyBugList(userId);
         }
     }
 }

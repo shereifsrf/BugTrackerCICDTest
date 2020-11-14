@@ -16,15 +16,13 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="bodyContent" runat="server">
     <!--================ Home Banner Area =================-->
     <section class="home_banner_area">
+    <input id="currentUserRole" runat="server"  hidden/>
         <div class="overlay"></div>
         <div class="banner_inner d-flex align-items-center">
             <div class="container">
                 <div class="banner_content row">
                     <div class="offset-lg-2 col-lg-8">
-
-
-
-                        <a class="main_btn mr-10" href="/pages/userProfile.aspx">Report Bugs</a>
+                        <a class="main_btn mr-10" href="/pages/userProfile.aspx" id="TitlePageBtnLbl">Report Bugs</a>
                         <a class="main_btn mr-10" href="/pages/bugList.aspx">Browse</a>
                         <br />
                         <br />
@@ -51,4 +49,13 @@
 
 
 
+</asp:Content>
+<asp:Content ID="Content4" ContentPlaceHolderID="script2" runat="server">
+    <script>
+        var role = $("#bodyContent_currentUserRole").val();
+        if (role == "dvp") {
+            $("#TitlePageBtnLbl").text("Bugs assigned to me");  
+        }
+    </script>
+    
 </asp:Content>
