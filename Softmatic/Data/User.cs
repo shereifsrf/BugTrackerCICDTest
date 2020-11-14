@@ -238,5 +238,52 @@ namespace Softmatic.Data
 
             return result;
         }
+
+        /// <summary>
+        /// THis method will query the stored procedure and get the list of all developers.
+        /// </summary>
+        /// <returns></returns>
+        public static List<Model.User.StaffList> getDeveleperList()
+        {
+            List<Model.User.StaffList> result = new List<Model.User.StaffList>();
+            List<Model.Common.sqlParameter> parameters = new List<Model.Common.sqlParameter>();
+
+            var reader = Data.Common.execSQLReader("sp_getDevList", parameters);
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    Model.User.StaffList user = new Model.User.StaffList();
+                    user.UserName = reader["UserName"].ToString();
+                    user.UserId = Convert.ToInt32(reader["UserId"].ToString());
+                    result.Add(user);
+                }
+                //reader.Close();
+            }
+            reader.Close();
+
+            return result;
+        }
+
+        public static string getCurrentDeveloper(int bugId)
+        {
+            string devId = "";
+
+            Model.User.UserDetail result = new Model.User.UserDetail();
+            List<Model.Common.sqlParameter> parameters = new List<Model.Common.sqlParameter>();
+
+            parameters.Add(new sqlParameter("@bugId", bugId));
+
+            var reader = Data.Common.execSQLReader("sp_getBugDeveloper @bugId", parameters);
+
+            if (reader.HasRows)
+            {
+                reader.Read();
+                devId = reader["developerId"].ToString();
+                reader.Close();
+            }
+
+            return devId;
+        }
     }
 }

@@ -29,11 +29,18 @@ namespace Softmatic.Model
             public int unreadCount { get; set; }
         }
 
-        public class Message {
+        public class Message
+        {
             public int byUserId { get; set; }
             public string byUserName { get; set; }
             public string msgContent { get; set; }
             public DateTime createdOn { get; set; }
+        }
+
+        public class StaffList
+        {
+            public int UserId { get; set; }
+            public string UserName { get; set; }
         }
     }
 }
