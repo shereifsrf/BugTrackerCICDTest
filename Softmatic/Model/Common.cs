@@ -49,6 +49,16 @@ namespace Softmatic.Model
                 this.isSuccess = isSuccess;
                 this.returnMsg = returnMsg;
             }
+
+            public override bool Equals(object obj)
+            {
+                if(obj is returnResult)
+                {
+                    var that = obj as returnResult;
+                    return this.isSuccess == that.isSuccess && this.returnValue == that.returnValue && this.returnMsg == that.returnMsg;
+                }
+                return false;
+            }
         }
 
         public class sqlParameter

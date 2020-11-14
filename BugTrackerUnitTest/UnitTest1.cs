@@ -64,19 +64,19 @@ namespace BugTrackerUnitTest
             Assert.AreEqual<returnResult>(expected, actual);
         }
 
-        [TestMethod]
-        public void loginRegisteringDeveloper()
-        {
-            actual = null;
+        //[TestMethod]
+        //public void loginRegisteringDeveloper()
+        //{
+        //    actual = null;
 
-            returnResult expected = new returnResult(true, "Add user successfully");
+        //    returnResult expected = new returnResult(true, "Add user successfully");
 
-            //returnResult expected = new returnResult(false, "This email has been used, please login / resgister with another email");
+        //    //returnResult expected = new returnResult(false, "This email has been used, please login / resgister with another email");
 
-            actual = login.addNewUser("unitTestDeveloper@gmail.com", "unitTest", "Developer01", "dvp", "Unittest1#");
+        //    actual = login.addNewUser("unitTestDeveloper@gmail.com", "unitTest", "Developer01", "dvp", "Unittest1#");
 
-            Assert.AreEqual<returnResult>(expected, actual);
-        }
+        //    Assert.AreEqual<returnResult>(expected, actual);
+        //}
 
         //[TestMethod]
         //public void loginLoggingUser()
