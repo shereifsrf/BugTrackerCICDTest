@@ -22,7 +22,7 @@ namespace Softmatic.pages
         {
             Model.Common.returnResult result = new Model.Common.returnResult(false, "Error submitting form, please try again");
 
-            result = Data.Common.sendEmail(subject, content, toEmail, "fundsomething.softmatic@gmail.com");
+            result = Data.Common.sendEmail(subject, content, toEmail, "csit314.randomguys@gmail.com");
 
             return result;
         }

@@ -46,7 +46,7 @@
                         <div class="info_item">
                             <i class="lnr lnr-envelope"></i>
                             <h6>
-                                <a href="#">fundsomething.softmatic@gmail.com</a>
+                                <a href="#">csit314.randomguys@gmail.com</a>
                             </h6>
                             <p>Send us your query anytime!</p>
                         </div>
