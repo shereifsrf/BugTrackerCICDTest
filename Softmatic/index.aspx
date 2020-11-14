@@ -28,11 +28,11 @@
                         <br />
                         <div class="container" style="padding-top: 25px;">
                             <div class="row">
-                                <div class="col-lg-10">
+                                <%--<div class="col-lg-10">
                                     <div class="form-group">
                                         <input type="text" class="form-control" id="txtSearchText" maxlength="100" placeholder="Search text">
                                     </div>
-                                </div>
+                                </div>--%>
                                 <div class="col-lg-2 text-right">
                                     <button type="submit" value="submit" onclick="return getCampaigns(1, 9);" class="btn submit_btn">Search</button>
                                 </div>
