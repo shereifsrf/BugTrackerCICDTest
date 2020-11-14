@@ -366,7 +366,7 @@ function getUrlParam(parameter, defaultvalue) {
     /*----------------------------------------------------*/
     // Partner Map
     if (document.getElementById('mapBox')) {
-        var center = L.bounds([1.56073, 104.11475], [1.16, 103.502]).getCenter();
+        var center = L.bounds([1.3294012, 103.7739858], [1.16, 103.502]).getCenter();
         var map = L.map('mapBox').setView([1.329147, 103.7764964], 18);
 
         var basemap = L.tileLayer('https://maps-{s}.onemap.sg/v3/Default/{z}/{x}/{y}.png', {

@@ -86,7 +86,7 @@ namespace Softmatic.Data
             }
             catch (Exception e)
             {
-                result.returnMsg = e.ToString();//"System error, please contact fundsomething.softmatic@gmail.com for assistance.";
+                result.returnMsg = e.ToString();//"System error, please contact csit314.randomguys@gmail.com for assistance.";
             }
 
             return result;
@@ -217,12 +217,12 @@ namespace Softmatic.Data
 
             // setup Smtp authentication
             System.Net.NetworkCredential credentials =
-                new System.Net.NetworkCredential("fundsomething.softmatic@gmail.com", "!@#QWEasdzxc4");
+                new System.Net.NetworkCredential("csit314.randomguys@gmail.com", "csit314rg!");
             client.UseDefaultCredentials = false;
             client.Credentials = credentials;
 
             MailMessage msg = new MailMessage();
-            msg.From = new MailAddress("fundsomething.softmatic@gmail.com");
+            msg.From = new MailAddress("csit314.randomguys@gmail.com");
             msg.To.Add(new MailAddress(toEmail));
 
             if (ccEmail != "")
@@ -250,7 +250,7 @@ namespace Softmatic.Data
             }
             catch (Exception ex)
             {
-                result.returnMsg = "System error, please contact fundsomething.softmatic@gmail.com for assistance.";
+                result.returnMsg = "System error, please contact csit314.randomguys@gmail.com for assistance.";
             }
 
             return result;

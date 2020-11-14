@@ -217,7 +217,6 @@
     <Content Include="js\stellar.js" />
     <Content Include="js\tabMain.js" />
     <Content Include="js\tabUtil.js" />
-    <Content Include="pages\aboutUs.aspx" />
     <Content Include="pages\bugList.aspx" />
     <Content Include="pages\bugDetails.aspx" />
     <Content Include="pages\contact.aspx" />
@@ -281,13 +280,6 @@
     <Compile Include="Model\Bug.cs" />
     <Compile Include="Model\Common.cs" />
     <Compile Include="Model\User.cs" />
-    <Compile Include="pages\aboutUs.aspx.cs">
-      <DependentUpon>aboutUs.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="pages\aboutUs.aspx.designer.cs">
-      <DependentUpon>aboutUs.aspx</DependentUpon>
-    </Compile>
     <Compile Include="pages\bugList.aspx.cs">
       <DependentUpon>bugList.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
