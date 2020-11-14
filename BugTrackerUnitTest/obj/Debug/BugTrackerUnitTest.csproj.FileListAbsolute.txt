@@ -16,3 +16,5 @@ C:\Users\Shereif\source\repos\BugTrackerCICDTest11\BugTrackerUnitTest\obj\Debug\
 C:\Users\Shereif\source\repos\BugTrackerCICDTest11\BugTrackerUnitTest\obj\Debug\BugTrackerUnitTest.csproj.CopyComplete
 C:\Users\Shereif\source\repos\BugTrackerCICDTest11\BugTrackerUnitTest\obj\Debug\BugTrackerUnitTest.dll
 C:\Users\Shereif\source\repos\BugTrackerCICDTest11\BugTrackerUnitTest\obj\Debug\BugTrackerUnitTest.pdb
+C:\Users\Shereif\source\repos\BugTrackerCICDTest11\BugTrackerUnitTest\bin\Debug\WebDriver.dll
+C:\Users\Shereif\source\repos\BugTrackerCICDTest11\BugTrackerUnitTest\bin\Debug\WebDriver.xml
