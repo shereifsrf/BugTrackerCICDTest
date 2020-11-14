@@ -85,8 +85,14 @@ namespace Softmatic.Data
                 */
                 result.createdOn = Convert.ToDateTime(reader["createdOn"].ToString());
 
-
-
+                try
+                {
+                    result.developerId = Convert.ToInt32(reader["developerId"].ToString());
+                }
+                catch (Exception e)
+                {
+                    result.developerId = 0;
+                }
                 reader.Close();
             }
 
@@ -99,7 +105,7 @@ namespace Softmatic.Data
 
             List<Model.Common.sqlParameter> parameters = new List<Model.Common.sqlParameter>();
 
-            var reader = Data.Common.execSQLReader("sp_getBugList" , parameters);
+            var reader = Data.Common.execSQLReader("sp_getBugList", parameters);
 
             if (reader.HasRows)
             {
@@ -319,6 +325,17 @@ namespace Softmatic.Data
             reader.Close();
 
             return result;
+        }
+
+        public static bool AssignDeveloper(int bugId, int devId)
+        {
+            List<Model.Common.sqlParameter> parameters = new List<Model.Common.sqlParameter>();
+
+            parameters.Add(new sqlParameter("@bugId", bugId));
+            parameters.Add(new sqlParameter("@devId", devId));
+
+            Data.Common.execSQLRetunResult("sp_updateBugDeveloper @bugId, @devId", parameters, true);
+            return true;
         }
     }
 }

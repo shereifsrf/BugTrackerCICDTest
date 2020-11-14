@@ -83,6 +83,36 @@ namespace Softmatic.pages
             return result;
         }
 
+        [WebMethod(EnableSession = true)]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public static List<Model.User.StaffList> getDevList()
+        {
+            var result = Data.User.getDeveleperList();
+            return result;
+        }
+
+        [WebMethod(EnableSession = true)]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public static string getCurrentlyAssignedDeveloper(int bugId)
+        {
+            return Data.User.getCurrentDeveloper(bugId);
+        }
+
+        [WebMethod(EnableSession = true)]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public static bool assignDeveloper(int bugId, int? devId)
+        {
+            if (devId == null)
+            {
+                return Data.Bug.AssignDeveloper(bugId, 0);
+            }
+            else
+            {
+                return Data.Bug.AssignDeveloper(bugId, devId.Value);
+
+            }
+        }
+
     }
 
 }

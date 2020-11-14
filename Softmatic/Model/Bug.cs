@@ -16,6 +16,7 @@ namespace Softmatic.Model
             public string createdBy { get; set; }
             public int createdByUserId { get; set; }
             public List<BugGallery> bugGalleryList { get; set; }
+            public int developerId { get; set; }
         }
 
         public class BugList

@@ -75,11 +75,25 @@
                             </div>
                             <div class="col-lg-9 col-md-9 blog_details">
                                 <h1 id="lblTitle"></h1>
-                                     <pre class="excert" id="lblDescription">
+                                <pre class="excert" id="lblDescription">
                                 </pre>
-                           
                             </div>
-                           
+                        </div>
+                        <div class="comments-area">
+                            <h4 id="">Bug Info</h4>
+                            <div class="row">
+                                <h5 class="col mt-2">Bug Status : </h5>
+                                <h5 class="col mt-2"> </h5>
+                            </div>
+                            <div class="row">
+                                <h5 class="col mt-2">Developer  : </h5>
+                                <select class="form-control col-md-6" id="DevListDDL">
+                                    <option>Not Assigned</option>
+                                </select>
+                            </div>
+                            <div class="row justify-content-md-end">
+                                <input class="btn btn-success col-md-2 align-content-end justify-content-end justify-content-md-end" onclick="AssignDeveloper();" value="Submit" />
+                            </div>
                         </div>
                         <div class="comments-area">
                             <h4 id="hdCommentCount">Comments</h4>
@@ -129,11 +143,10 @@
         var bugId;
 
         $(function () {
-
             bugId = getUrlParam('bugId', 0);
             getBugDetails();
             getBugComments(1, 5);
-
+            
         });
 
 
@@ -146,12 +159,13 @@
                 dataType: "json",
                 success: function (response) {
                     if (response.d.title != null) {
-
                         $('#lblTitle').text(response.d.title);
                         $('#lblCategory').text(response.d.category);
                         $('#lblDescription').text(response.d.description);
                         $('#lblCreatedBy, #lblUserName').text(response.d.createdBy);
 
+                        //Get Developers and set the assigned dev
+                        getAllDevListAndParseItInSelect(response.d.developerId);
 
                     } else {
                         Swal.fire({
@@ -273,7 +287,6 @@
                     })
 
                     var currentPage = $('#commentPager').find('.page_disabled').length > 0 ? $('#commentPager').find('.page_disabled')[0].text : 1;
-
                     getBugComments(currentPage, 5);
                 },
                 error: function (response) {
@@ -289,6 +302,65 @@
             return false;
         }
 
+        function getAllDevListAndParseItInSelect(assignedDev) {
+            $.ajax({
+                type: "POST",
+                url: "bugDetails.aspx/getDevList",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    console.log(JSON.stringify(response));
+                    var data = response.d;
+                    var tempHtml = '<option value="0">Un-Assigned</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        tempHtml += '<option value="' + data[i].UserId + '">' + data[i].UserName+'</option>';
+                    }
+
+                    $("#DevListDDL").html(tempHtml);
+                    $("#DevListDDL").val(assignedDev);
+                },
+                error: function (response) {
+                    console.log(JSON.stringify(response));
+                    showErrorMsg();
+                },
+                failure: function (response) {
+
+                    console.log(JSON.stringify(response));
+                    showErrorMsg()
+                }
+            });
+        }
+
+        function AssignDeveloper() {
+            var devId = $("#DevListDDL").val();
+            var data = { 'devId': devId, 'bugId': bugId };
+
+            $.ajax({
+                type: "POST",
+                url: "bugDetails.aspx/assignDeveloper",
+                data: JSON.stringify(data),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    console.log(JSON.stringify(response));
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Successsfully Assigned'
+                    })
+                },
+                error: function (response) {
+                    console.log(JSON.stringify(response));
+                    showErrorMsg();
+                },
+                failure: function (response) {
+                    console.log(JSON.stringify(response));
+                    showErrorMsg()
+                }
+            });
+
+            return false;
+
+        }
 
     </script>
 </asp:Content>
