@@ -120,6 +120,7 @@ namespace Softmatic.Data
                     bug.createdBy = reader["createdBy"].ToString();
                     //bug.createdByUserId = Convert.ToInt32(reader["createdByUserId"].ToString());
                     bug.createdOn = Convert.ToDateTime(reader["createdOn"].ToString());
+                    bug.status = reader["status"].ToString();
                     bugList.Add(bug);
                 }
 

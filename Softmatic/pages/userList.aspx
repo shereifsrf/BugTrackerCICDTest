@@ -83,11 +83,11 @@
 
         window.userEvents = {
             'click .activate': function (e, value, row, index) {
-                updateUserStatus(row.userId, true);
+                UpdateRole(row.userId, true);
 
             },
             'click .deactivate': function (e, value, row, index) {
-                updateUserStatus(row.userId, false);
+                UpdateRole(row.userId, false);
             }
         }
 
@@ -203,6 +203,37 @@
             });
         }
 
+        function assignRoleSubmit(role, userId) {
+            var data = { 'role': role, 'userid': userId };
+            debugger;
+            $.ajax({
+                type: "POST",
+                async: false,
+                url: "userList.aspx/AssignRole",
+                data: JSON.stringify(data),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    Swal.fire({
+                        icon: response.d.isSuccess ? 'success' : 'error',
+                        title: response.d.returnMsg
+                    });
+                    getUserList();
+                },
+                error: function (response) {
+                    alert(response);
+                    console.log(response);
+                    showErrorMsg();
+                },
+                failure: function (response) {
+                    alert(response);
+
+                    console.log(response);
+                    showErrorMsg();
+                }
+            });
+        }
+
         function updateUserStatus(userId, status) {
             var data = { 'userId': userId, 'isActive': status };
 
@@ -229,6 +260,10 @@
                     showErrorMsg();
                 }
             });
+        }
+
+        function UpdateRole(userId, status) {
+            assignRoleModal(userId, status);
         }
 
         function getUserList() {
@@ -326,6 +361,45 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     addNewUser($('#txtFirstName').val(), $('#txtLastName').val(), $('#txtEmail').val(), $('#ddlRole').val(), $('#txtPassword').val());
+                }
+            })
+        }
+
+        function assignRoleModal(userId) {
+            Swal.fire({
+                width: 500,
+                title: 'Assign Role',
+                html:
+                    '<div class="row"> '+
+
+                    '</div> <div class="col-lg-12 col-md-12">' +
+                    '<label for="ddlRoleAssign">Role</label><br />' +
+                    '<select id="ddlRoleAssign" name="ddlRole" required style="width: 100%" class="swal2-input"> <option value="" >-- Please Select Role --</option >' +
+                    '<option value="unassigned" >Un-assigned</option >' +
+                    '<option value="dvp" >Developer</option >' +
+                    '<option value="rvr" >Reviewer</option >' +
+                    '<option value="rpt" >Reporter</option >' +
+                    '<option value="tgi" >Taiger</option >  </select >' +
+                    '</div> </div>',
+                showCloseButton: true,
+                showCancelButton: true,
+                focusConfirm: false,
+                confirmButtonText: 'Assign',
+                cancelButtonText: 'Cancel',
+                showLoaderOnConfirm: true,
+                onOpen: function () {
+                },
+                preConfirm: (user) => {
+                    if ($('#ddlRoleAssign').val() == '') {
+                        return false;
+                    }
+                    else {
+                        return true;
+                    }
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    assignRoleSubmit($('#ddlRoleAssign').val(), userId);
                 }
             })
         }

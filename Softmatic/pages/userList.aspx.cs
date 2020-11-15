@@ -65,5 +65,15 @@ namespace Softmatic.pages
 
             return result;
         }
+
+        [WebMethod(EnableSession = true)]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public static Model.Common.returnResult AssignRole(int userid, string role)
+        {
+            Model.Common.returnResult result = new Model.Common.returnResult(false, "Error creating new user");
+            int createdBy = Convert.ToInt32(HttpContext.Current.Session["userId"]);
+            result = Data.User.updateRole(role, userid);
+            return result;
+        }
     }
 }
