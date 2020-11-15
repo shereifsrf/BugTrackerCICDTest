@@ -2,7 +2,7 @@
 
 Please pull-request before merging your branch into main
 
-##main
+## main
 Admin --> All (all)
 Reviewer --> (review-Developer resolved cases, can see all cases)
 Triager --> (assign a 'new' bug to a developer, see all cases)
