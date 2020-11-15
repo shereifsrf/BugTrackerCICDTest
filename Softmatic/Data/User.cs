@@ -38,13 +38,20 @@ namespace Softmatic.Data
                 var userId = Convert.ToInt32(reader["userId"].ToString());
                 var role = reader["role"].ToString();
 
+                reader.Close();
+
+                if (string.IsNullOrEmpty(role))
+                {
+                    result = new Model.Common.returnResult(false, "No role is assigned to the User. Please wait till the admin assign them. ");
+                    return result;
+                }
+
                 System.Web.HttpContext.Current.Session["userId"] = userId;
                 System.Web.HttpContext.Current.Session["userRole"] = role;
 
                 result.isSuccess = true;
                 result.returnMsg = "Login Successfully";
 
-                reader.Close();
             }
 
             return result;

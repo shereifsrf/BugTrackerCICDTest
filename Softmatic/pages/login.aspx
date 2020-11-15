@@ -138,11 +138,11 @@
                                         <input type="password" id="txtConfirmPassword" oninput="setPasswordConfirmValidity()" name="confirmPassword" maxlength="100" placeholder="Confirm Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Confirm Password'"
                                             required class="single-input">
                                     </div>
-                                    <div class="input-group-icon mt-10">
+                                    <div class="input-group-icon mt-10" hidden>
                                         <div class="icon">
                                             <i class="fas fa-globe-asia"></i>
                                         </div>
-                                        <select id="ddlRole" name="role" required class="single-input">
+                                        <select id="ddlRole" name="role" required class="single-input" hidden>
                                             <option value="">-- Please Select Role --</option>
                                         </select>
                                     </div>
@@ -270,7 +270,7 @@
         }
 
         function register() {
-            if (!$('#txtFirstName')[0].validity.valid || !$('#txtLastName')[0].validity.valid || !$('#txtRegisterEmail')[0].validity.valid || !$('#ddlRole')[0].validity.valid || !$('#txtRegisterPassword')[0].validity.valid || !$('#txtConfirmPassword')[0].validity.valid) {
+            if (!$('#txtFirstName')[0].validity.valid || !$('#txtLastName')[0].validity.valid || !$('#txtRegisterEmail')[0].validity.valid  || !$('#txtRegisterPassword')[0].validity.valid || !$('#txtConfirmPassword')[0].validity.valid) {
                 return;
             } else {
                 var firstName = $('#txtFirstName').val(),
