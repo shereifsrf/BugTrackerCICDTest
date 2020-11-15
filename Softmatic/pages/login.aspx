@@ -138,7 +138,7 @@
                                         <input type="password" id="txtConfirmPassword" oninput="setPasswordConfirmValidity()" name="confirmPassword" maxlength="100" placeholder="Confirm Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Confirm Password'"
                                             required class="single-input">
                                     </div>
-                                    <div class="input-group-icon mt-10">
+                                    <div class="input-group-icon mt-10" hidden>
                                         <div class="icon">
                                             <i class="fas fa-globe-asia"></i>
                                         </div>
