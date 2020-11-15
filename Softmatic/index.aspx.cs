@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Script.Services;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -22,6 +24,17 @@ namespace Softmatic
                     Response.Redirect("pages/login.aspx");
                 }
             }
+        }
+
+        [WebMethod(EnableSession = true)]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public static Model.Common.TableValues getTableValues()
+        {
+            Model.Common.TableValues result = new Model.Common.TableValues();
+
+            result = Data.User.getTableValues();
+
+            return result;
         }
     }
 }

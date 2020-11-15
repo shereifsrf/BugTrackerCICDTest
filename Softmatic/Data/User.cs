@@ -299,5 +299,43 @@ namespace Softmatic.Data
 
             return devId;
         }
+
+        public static TableValues getTableValues()
+        {
+
+            Model.Common.TableValues result = new Model.Common.TableValues();
+            List<Model.Common.sqlParameter> parameters = new List<Model.Common.sqlParameter>();
+
+            var reader = Data.Common.execSQLReader("sp_getTableValues", parameters);
+
+            if (reader.HasRows)
+            {
+                reader.Read();
+                result.totalUsers = Convert.ToInt32(reader["totalUsers"].ToString());
+                result.monthlyUsers = Convert.ToInt32(reader["monthlyUsers"].ToString());
+                result.weeklyUsers = Convert.ToInt32(reader["weeklyUsers"].ToString());
+                result.totalReports = Convert.ToInt32(reader["totalReports"].ToString());
+                result.monthlyReports = Convert.ToInt32(reader["monthlyReports"].ToString());
+                result.weeklyReports = Convert.ToInt32(reader["weeklyReports"].ToString());
+                result.totalResolved = Convert.ToInt32(reader["totalResolved"].ToString());
+                result.monthlyResolved = Convert.ToInt32(reader["monthlyResolved"].ToString());
+                result.weeklyResolved = Convert.ToInt32(reader["weeklyResolved"].ToString());
+                result.bestDeveloperAll = reader["bestDeveloperAll"].ToString();
+                result.bestDeveloperAllTotReports = Convert.ToInt32(reader["bestDeveloperAllTotReports"].ToString());
+                result.bestDeveloperMonth = reader["bestDeveloperMonth"].ToString();
+                result.bestDeveloperMonthTotReports = Convert.ToInt32(reader["bestDeveloperMonthTotReports"].ToString());
+                result.bestDeveloperWeek = reader["bestDeveloperWeek"].ToString();
+                result.bestDeveloperWeekTotReports = Convert.ToInt32(reader["bestDeveloperWeekTotReports"].ToString());
+                result.bestReporterAll = reader["bestReporterAll"].ToString();
+                result.bestReporterAllTotReports = Convert.ToInt32(reader["bestReporterAllTotReports"].ToString());
+                result.bestReporterMonth = reader["bestReporterMonth"].ToString();
+                result.bestReporterMonthTotReports = Convert.ToInt32(reader["bestReporterMonthTotReports"].ToString());
+                result.bestReporterWeek = reader["bestReporterWeek"].ToString();
+                result.bestReporterWeekTotReports = Convert.ToInt32(reader["bestReporterWeekTotReports"].ToString());
+            }
+            reader.Close();
+
+            return result;
+        }
     }
 }
