@@ -94,6 +94,7 @@
     <Content Include="img\banner-bg.jpg" />
     <Content Include="img\banner-bg1.jpg" />
     <Content Include="img\banner-bg2.jpg" />
+    <Content Include="img\bannerUserprofile.jpg" />
     <Content Include="img\banner\home.jpg" />
     <Content Include="img\banner\home.png" />
     <Content Include="img\banner\text-img.jpg" />
