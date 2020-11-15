@@ -329,6 +329,7 @@
                     '</div> <div class="col-lg-4 col-md-4">' +
                     '<label for="ddlRole">Role</label><br />' +
                     '<select id="ddlRole" name="ddlRole" required style="width: 100%" class="swal2-input"> <option value="" >-- Please Select Role --</option >' +
+                    '<option value="rvr" >Reviewer</option >' +
                     '<option value="dvp" >Developer</option >' +
                     '<option value="rvr" >Reviewer</option >' +
                     '<option value="tgi" >Taiger</option >  </select >' +
