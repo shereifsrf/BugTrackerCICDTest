@@ -9,8 +9,6 @@
 
 namespace Softmatic.pages
 {
-
-
     public partial class userList
     {
     }
