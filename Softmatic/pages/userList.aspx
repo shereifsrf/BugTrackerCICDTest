@@ -125,7 +125,7 @@
             formatter: statusFormatter
         }, {
             field: 'operate',
-            title: 'Action',
+            title: 'Role Assignment',
             align: 'center',
             clickToSelect: false,
             events: window.userEvents,
@@ -425,9 +425,9 @@
             var actionOptions = [];
 
             if (row.status == 'True') {
-                actionOptions.push('<a class="deactivate" href="javascript:void(0)" title="Deactivate"> <i class="fa fa-times-circle"></i> </a>&nbsp;');
+                actionOptions.push('<a class="deactivate" href="javascript:void(0)" title="Deactivate"> <i class="fa fa-id-card"></i> </a>&nbsp;');
             } else {
-                actionOptions.push('<a class="activate" href="javascript:void(0)" title="Activate"> <i class="fa fa-check-circle"></i> </a>&nbsp;');
+                actionOptions.push('<a class="activate" href="javascript:void(0)" title="Activate"> <i class="fa fa-id-card"></i> </a>&nbsp;');
             }
 
             return actionOptions.join('')
