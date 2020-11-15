@@ -115,8 +115,31 @@ namespace Softmatic.pages
 
         [WebMethod(EnableSession = true)]
         [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-        public static bool ResolveBug(int bugId)
+        public static Model.Common.returnResult ResolveBug(int bugId)
         {
+            var userId = Convert.ToInt32(HttpContext.Current.Session["userId"]);
+            var role = HttpContext.Current.Session["userRole"]?.ToString();
+
+            if(role == "dvp")
+            {
+                var bugDetails = Data.Bug.getBugDetails(bugId);
+                if(bugDetails.developerId != userId)
+                {
+                    return new Model.Common.returnResult
+                    {
+                        isSuccess = false,
+                        returnMsg = "This Bug is assigned to another developer. You are not entitles to resolve this."
+                    };
+                }
+            }
+
+            var isCommented = Data.Bug.CheckComment(bugId, userId);
+
+            if (!isCommented.isSuccess)
+            {
+                return isCommented;
+            }
+
             return Data.Bug.ResolveBug(bugId);
         }
 
@@ -128,5 +151,4 @@ namespace Softmatic.pages
             return Data.Bug.AproveBugFix(bugId, reviewer);
         }
     }
-
 }

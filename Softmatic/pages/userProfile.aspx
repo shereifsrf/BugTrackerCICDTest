@@ -91,6 +91,7 @@
         </div>
     </section>
     <!--================End Home Banner Area =================-->
+    <input id="currentRole" hidden  runat="server"/>
 
     <div class="row">
         <div class="col-lg-12 col-md-12">
@@ -155,7 +156,7 @@
                         </li>
                         <li id="tab-case" class="cd-tabs__panel cd-tabs__panel--selected text-component ">
                             <div id="toolbar">
-                                <button id="add" class="btn btn-primary" onclick="openNewBugDialog();">
+                                <button id="add" class="btn btn-primary d-none" onclick="openNewBugDialog();">
                                     Report Bug
                                 </button>
                             </div>
@@ -279,6 +280,10 @@
 
             if ($('#caseTab').length > 0) {
                 getmyCase();
+            }
+            debugger;
+            if ($('#bodyContent_currentRole').val() == 'adm' || $('#bodyContent_currentRole').val() == 'rpt') {
+                $('#add').removeClass('d-none');
             }
         })
 

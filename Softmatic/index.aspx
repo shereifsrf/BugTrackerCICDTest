@@ -23,7 +23,7 @@
                 <div class="banner_content row">
                     <div class="offset-lg-2 col-lg-8">
                         <a class="main_btn mr-10" href="/pages/userProfile.aspx" id="TitlePageBtnLbl">Report Bugs</a>
-                        <a class="main_btn mr-10" href="/pages/bugList.aspx">Browse</a>
+                        <a class="main_btn mr-10" href="/pages/bugList.aspx">Browse All Cases</a>
                         <br />
                         <br />
                         <div class="container" style="padding-top: 25px;">
@@ -52,9 +52,16 @@
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="script2" runat="server">
     <script>
+        debugger;
         var role = $("#bodyContent_currentUserRole").val();
         if (role == "dvp") {
-            $("#TitlePageBtnLbl").text("Bugs assigned to me");  
+            $("#TitlePageBtnLbl").text("Bugs assigned to me");
+        }
+        else if (role == "rvr") {
+            $("#TitlePageBtnLbl").text("My Cases");
+        }
+        else if (role == "tgi") {
+            $("#TitlePageBtnLbl").text("Un-Assigned Cases");
         }
     </script>
     

@@ -93,11 +93,11 @@
                                 </select>
                                 <h5 class="col mt-2 d-none" style="color:orange" id="DevLbl"></h5>
                             </div>
-                            <div class="row justify-content-md-end">
-                                <input class="btn btn-success col-md-3 align-content-end justify-content-end justify-content-md-end d-none" id="DevAssignBtn" onclick="AssignDeveloper();" value="Assign Developer" />
-                                <input class="btn btn-success col-md-3 align-content-end justify-content-end justify-content-md-end d-none" id="ResolveBtn" onclick="BugResolved();" value="Bug Resolved" />
-                                <input class="btn btn-success col-md-4 align-content-end justify-content-end justify-content-md-end d-none" id="CloseBugBtn" onclick="CloseBug();" value="Approve Fix and Close Bug" />
-                                <input class="btn btn-success col-md-3 align-content-end justify-content-end justify-content-md-end d-none" id="RejectBuBtn" onclick="RejectBug();" value="Reject Bug Fix" />
+                            <div class="row text-center mt-4" style="align-content:center">
+                                <input class="btn btn-success col-md-3  d-none mr-2" id="DevAssignBtn" onclick="AssignDeveloper();" value="Assign Developer" />
+                                <input class="btn btn-success col-md-3  d-none mr-2" id="ResolveBtn" onclick="BugResolved();" value="Bug Resolved" />
+                                <input class="btn btn-success col-md-4  d-none mr-2" id="CloseBugBtn" onclick="CloseBug();" value="Approve Fix and Close Bug" />
+                                <input class="btn btn-success col-md-3  d-none mr-2" id="RejectBuBtn" onclick="RejectBug();" value="Reject Bug Fix" />
                             </div>
                         </div>
                         <%--Bug Info End--%> 
@@ -126,9 +126,6 @@
 
                                 <h4 id="lblUserName"></h4>
                                 <h4>Bug Reporter</h4>
-
-
-
                                 <div id="progressbar"></div>
                                 <div id="fundRaised"></div>
                                 <div class="br"></div>
@@ -334,7 +331,10 @@
                     {
                         $('#DevListDDL').removeClass('d-none');
                         $('#DevLbl').addClass('d-none');
-                        $("#DevAssignBtn").removeClass('d-none');
+                        debugger;
+                        if ( status != 'Close') {
+                            $("#DevAssignBtn").removeClass('d-none');
+                        }
                     }
                     else
                     {
@@ -416,17 +416,26 @@
 
             $.ajax({
                 type: "POST",
-                url: "bugDetails.aspx/ResoveBug",
+                url: "bugDetails.aspx/ResolveBug",
                 data: JSON.stringify(data),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
-                    console.log(JSON.stringify(response));
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Successsfully Resolved'
-                    });
-                    location.reload();
+                    debugger;
+                    if (response.d.isSuccess == true) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Successsfully Resolved'
+                        });
+                        location.reload();
+                    }
+                    else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: response.d.returnMsg
+                        })
+                    }
                 },
                 error: function (response) {
                     console.log(JSON.stringify(response));
