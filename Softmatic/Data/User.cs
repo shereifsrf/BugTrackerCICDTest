@@ -112,6 +112,20 @@ namespace Softmatic.Data
             return result;
         }
 
+        public static Model.Common.returnResult updateRole(string role, int userId)
+        {
+            Model.Common.returnResult result = new Model.Common.returnResult();
+
+            List<Model.Common.sqlParameter> parameters = new List<Model.Common.sqlParameter>();
+
+            parameters.Add(new sqlParameter("@role", role));
+            parameters.Add(new sqlParameter("@userId", userId));
+
+            result = Data.Common.execSQLRetunResult("sp_updateUserRole @userId, @role, @isSuccess OUTPUT, @returnMsg OUTPUT", parameters);
+
+            return result;
+        }
+
         public static Model.User.UserDetail getUserDetail(int userId)
         {
             Model.User.UserDetail result = new Model.User.UserDetail();

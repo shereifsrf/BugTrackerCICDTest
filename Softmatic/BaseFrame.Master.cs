@@ -30,7 +30,7 @@ namespace Softmatic
                         navStaff.Visible = false;
                     }
 
-                    if (Data.User.getLoginUserRole().Equals("ADMIN"))
+                    if (Data.User.getLoginUserRole().Equals("adm"))
                     {
                         navAdmin.Visible = true;
                     }
