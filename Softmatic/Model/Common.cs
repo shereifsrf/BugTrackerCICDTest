@@ -72,5 +72,35 @@ namespace Softmatic.Model
                 this.value = value;
             }
         }
+
+        public class TableValues
+        {
+            public int totalUsers { get; set; }
+            public int monthlyUsers { get; set; }
+            public int weeklyUsers { get; set; }
+            public int totalReports { get; set; }
+            public int monthlyReports { get; set; }
+            public int weeklyReports { get; set; }
+            public int totalResolved { get; set; }
+            public int monthlyResolved { get; set; }
+            public int weeklyResolved { get; set; }
+            public string bestDeveloperAll { get; set; }
+            public int bestDeveloperAllTotReports { get; set; }
+            public string bestDeveloperMonth { get; set; }
+            public int bestDeveloperMonthTotReports { get; set; }
+            public string bestDeveloperWeek { get; set; }
+            public int bestDeveloperWeekTotReports { get; set; }
+            public string bestReporterAll { get; set; }
+            public int bestReporterAllTotReports { get; set; }
+            public string bestReporterMonth { get; set; }
+            public int bestReporterMonthTotReports { get; set; }
+            public string bestReporterWeek { get; set; }
+            public int bestReporterWeekTotReports { get; set; }
+
+            public TableValues()
+            {
+
+            }
+        }
     }
 }
