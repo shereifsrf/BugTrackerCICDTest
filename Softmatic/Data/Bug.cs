@@ -370,14 +370,58 @@ namespace Softmatic.Data
             return result;
         }
 
-        public static bool ResolveBug(int bugId)
+        public static List<Model.Bug.BugDetails> getMyBugListForTiager()
+        {
+            List<Model.Bug.BugDetails> result = new List<Model.Bug.BugDetails>();
+            List<Model.Common.sqlParameter> parameters = new List<Model.Common.sqlParameter>();
+            var reader = Data.Common.execSQLReader("sp_getMyBugListForTiager", parameters);
+
+            while (reader.Read())
+            {
+                Model.Bug.BugDetails bug = new Model.Bug.BugDetails();
+
+                bug.bugId = Convert.ToInt32(reader["bugId"].ToString());
+                bug.title = reader["title"].ToString();
+                bug.status = reader["status"].ToString();
+                bug.createdBy = reader["createdBy"].ToString();
+                bug.description = reader["description"].ToString();
+                bug.createdOn = Convert.ToDateTime(reader["createdOn"].ToString());
+
+                result.Add(bug);
+            }
+            reader.Close();
+            return result;
+        }
+
+        public static List<Model.Bug.BugDetails> getMyBugListForReviewer()
+        {
+            List<Model.Bug.BugDetails> result = new List<Model.Bug.BugDetails>();
+            List<Model.Common.sqlParameter> parameters = new List<Model.Common.sqlParameter>();
+            var reader = Data.Common.execSQLReader("sp_getMyBugListForReviewer", parameters);
+
+            while (reader.Read())
+            {
+                Model.Bug.BugDetails bug = new Model.Bug.BugDetails();
+
+                bug.bugId = Convert.ToInt32(reader["bugId"].ToString());
+                bug.title = reader["title"].ToString();
+                bug.status = reader["status"].ToString();
+                bug.createdBy = reader["createdBy"].ToString();
+                bug.description = reader["description"].ToString();
+                bug.createdOn = Convert.ToDateTime(reader["createdOn"].ToString());
+
+                result.Add(bug);
+            }
+            reader.Close();
+            return result;
+        }
+
+        public static Model.Common.returnResult ResolveBug(int bugId)
         {
             List<Model.Common.sqlParameter> parameters = new List<Model.Common.sqlParameter>();
-
             parameters.Add(new sqlParameter("@bugId", bugId));
-
-            Data.Common.execSQLRetunResult("sp_ResolveBug @bugId", parameters, true);
-            return true;
+            var data  = Data.Common.execSQLRetunResult("sp_ResolveBug @bugId, @isSuccess OUTPUT, @returnMsg OUTPUT, @returnValue OUTPUT", parameters, true);
+            return data;
         }
 
         public static bool AproveBugFix(int bugId, int reviewerId)
@@ -386,7 +430,6 @@ namespace Softmatic.Data
 
             parameters.Add(new sqlParameter("@bugId", bugId));
             parameters.Add(new sqlParameter("@reviewer", reviewerId));
-
             Data.Common.execSQLRetunResult("sp_ApproveAndCloseBug @bugId, @reviewer", parameters, true);
             return true;
         }
@@ -397,9 +440,22 @@ namespace Softmatic.Data
 
             parameters.Add(new sqlParameter("@bugId", bugId));
 
-            Data.Common.execSQLRetunResult("sp_ResolveBug @bugId", parameters, true);
+            Data.Common.execSQLRetunResult("sp_ResolveBug @bugId, @isSuccess OUTPUT, @returnMsg OUTPUT, @returnValue OUTPUT", parameters, true);
             return true;
          }
 
+        public static Model.Common.returnResult CheckComment(int bugId, int userId)
+        {
+            Model.Common.returnResult result = new Model.Common.returnResult();
+
+            List<Model.Common.sqlParameter> parameters = new List<Model.Common.sqlParameter>();
+
+            parameters.Add(new sqlParameter("@bugId", bugId));
+            parameters.Add(new sqlParameter("@userId", userId));
+
+            result = Data.Common.execSQLRetunResult("sp_IsCommented @bugId, @userId, @isSuccess OUTPUT, @returnMsg OUTPUT, @returnValue OUTPUT", parameters, true);
+
+            return result;
+        }
     }
 }

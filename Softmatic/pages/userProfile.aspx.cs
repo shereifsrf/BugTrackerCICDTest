@@ -22,6 +22,7 @@ namespace Softmatic.pages
                 {
                     if (Data.User.isLogin())
                     {
+                        currentRole.Value = HttpContext.Current.Session["userRole"]?.ToString();
                         /*if (Data.User.getLoginUserRole().Equals("USR"))
                         {
                             userTabs.Visible = true;
@@ -108,6 +109,14 @@ namespace Softmatic.pages
             if (HttpContext.Current.Session["userRole"]?.ToString() == "dvp")
             {
                 return  Data.Bug.getMyBugListForDeveloper(userId);
+            }
+            else if (HttpContext.Current.Session["userRole"]?.ToString() == "tgi")
+            {
+                return Data.Bug.getMyBugListForTiager();
+            }
+            else if (HttpContext.Current.Session["userRole"]?.ToString() == "rvr")
+            {
+                return Data.Bug.getMyBugListForReviewer();
             }
 
             return Data.Bug.getMyBugList(userId);
