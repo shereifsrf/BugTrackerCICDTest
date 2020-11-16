@@ -228,7 +228,7 @@ C:\Users\Shereif\Source\Repos\BugTrackerCICDTest11\Softmatic\bin\roslyn\VBCSComp
 C:\Users\Shereif\Source\Repos\BugTrackerCICDTest11\Softmatic\bin\roslyn\VBCSCompiler.exe.config
 C:\Users\Shereif\Source\Repos\BugTrackerCICDTest11\Softmatic\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 C:\Users\Shereif\Source\Repos\BugTrackerCICDTest11\Softmatic\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\Shereif\Source\Repos\BugTrackerCICDTest11\Softmatic\obj\Debug\Softmatic.csprojAssemblyReference.cache
 C:\Users\Shereif\Source\Repos\BugTrackerCICDTest11\Softmatic\obj\Debug\Softmatic.csproj.CopyComplete
 C:\Users\Shereif\Source\Repos\BugTrackerCICDTest11\Softmatic\obj\Debug\Softmatic.dll
 C:\Users\Shereif\Source\Repos\BugTrackerCICDTest11\Softmatic\obj\Debug\Softmatic.pdb
+C:\Users\Shereif\source\repos\BugTrackerCICDTest11\Softmatic\obj\Debug\Softmatic.csprojAssemblyReference.cache
