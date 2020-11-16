@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Web;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using Softmatic.pages;
 using static Softmatic.Model.Common;
 
@@ -11,7 +14,7 @@ namespace BugTrackerUnitTest
         private returnResult actual = new returnResult();
 
         [TestMethod]
-        public void loginRegisteringAdmin()
+        public void a1LoginRegisteringAdmin()
         {
             returnResult expected = new returnResult(true, "Add user successfully");
 
@@ -23,7 +26,7 @@ namespace BugTrackerUnitTest
         }
 
         [TestMethod]
-        public void loginRegisteringReviewer()
+        public void a2LoginRegisteringReviewer()
         {
             actual = null;
 
@@ -37,7 +40,7 @@ namespace BugTrackerUnitTest
         }
 
         [TestMethod]
-        public void loginRegisteringTriager()
+        public void a3LoginRegisteringTriager()
         {
             actual = null;
 
@@ -51,7 +54,7 @@ namespace BugTrackerUnitTest
         }
 
         [TestMethod]
-        public void loginRegisteringReporter()
+        public void a4LoginRegisteringReporter()
         {
             actual = null;
 
@@ -65,7 +68,7 @@ namespace BugTrackerUnitTest
         }
 
         [TestMethod]
-        public void loginRegisteringDeveloper()
+        public void a5LoginRegisteringDeveloper()
         {
             actual = null;
 
@@ -79,15 +82,41 @@ namespace BugTrackerUnitTest
         }
 
         //[TestMethod]
-        //public void loginLoggingUser()
+        //public void a6LogginInAndCeateBug()
         //{
-        //    returnResult expected = new returnResult(true, "Add user successfully");
+        //    actual = null;
 
-        //    //returnResult expected = new returnResult(false, "This email has been used, please login / resgister with another email");
+        //    returnResult expected = new returnResult(true, "Login successfully");
 
-        //    actual = login.addNewUser("unitTestAdm@gmail.com", "unitTest", "admin01", "adm", "Unittest1#");
+
+        //    //var mockSession1 = new Mock<System.Web.SessionState.HttpSessionState>();
+        //    //var mockSession2 = new Mock<System.Web.SessionState.HttpSessionState>();
+        //    //var mockDataUser = new Mock<Softmatic.Data.ITesting>();
+        //    //mockSession1.SetupGet(s => s["userId"]).Returns(""); //somevalue
+        //    //mockSession2.SetupGet(s => s["userRole"]).Returns(""); //somevalue
+        //    //mockDataUser.Setup(p => HttpContext.Current.Session).Returns(mockSession1.Object);
+        //    //mockDataUser.Setup(p => HttpContext.Current.Session).Returns(mockSession2.Object);
+
+
+
+        //    actual = login.userLogin("unitTestAdm@gmail.com", "Unittest1#");
+
 
         //    Assert.AreEqual<returnResult>(expected, actual);
         //}
+
+
+        [TestMethod]
+        public void aaaDeleteUnitTestUsers()
+        {
+
+            List<Softmatic.Model.Common.sqlParameter> parameters = new List<Softmatic.Model.Common.sqlParameter>();
+
+            var reader = Softmatic.Data.Common.execSQLReader("delete from tbl_user where email in ('unitTestAdm@gmail.com', 'unitTestDeveloper@gmail.com', 'unitTestReporter@gmail.com', 'unitTestReviewer@gmail.com', 'unitTestriager@gmail.com')", parameters);
+
+            reader.Read();
+            reader.Close();
+        }
+
     }
 }
