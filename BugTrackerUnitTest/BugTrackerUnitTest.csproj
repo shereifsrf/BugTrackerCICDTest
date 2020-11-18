@@ -67,9 +67,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Softmatic\Softmatic.csproj">
+    <ProjectReference Include="..\Softmatic\BugTracker.csproj">
       <Project>{986b8bfb-1035-49bb-8c28-c8970a493376}</Project>
-      <Name>Softmatic</Name>
+      <Name>BugTracker</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

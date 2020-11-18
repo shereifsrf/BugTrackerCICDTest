@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Softmatic", "Softmatic\Softmatic.csproj", "{986B8BFB-1035-49BB-8C28-C8970A493376}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BugTracker", "Softmatic\BugTracker.csproj", "{986B8BFB-1035-49BB-8C28-C8970A493376}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BugTrackerUnitTest", "BugTrackerUnitTest\BugTrackerUnitTest.csproj", "{C4FB10A3-DB44-4F5E-BDE6-F25349727C64}"
 EndProject
