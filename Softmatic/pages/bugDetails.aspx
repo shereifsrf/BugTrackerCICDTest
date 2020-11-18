@@ -97,7 +97,7 @@
                                 <input class="btn btn-success col-md-3  d-none mr-2" id="DevAssignBtn" onclick="AssignDeveloper();" value="Assign Developer" />
                                 <input class="btn btn-success col-md-3  d-none mr-2" id="ResolveBtn" onclick="BugResolved();" value="Bug Resolved" />
                                 <input class="btn btn-success col-md-4  d-none mr-2" id="CloseBugBtn" onclick="CloseBug();" value="Approve Fix and Close Bug" />
-                                <input class="btn btn-success col-md-3  d-none mr-2" id="RejectBuBtn" onclick="RejectBug();" value="Reject Bug Fix" />
+                                <input class="btn btn-danger col-md-3  d-none mr-2" id="RejectBuBtn" onclick="RejectBug();" value="Reject Bug Fix" />
                             </div>
                         </div>
                         <%--Bug Info End--%> 
@@ -352,7 +352,7 @@
                     if (status == "Resolve") {
                         if (role == 'adm' || role == 'rvr') {
                             $('#CloseBugBtn').removeClass('d-none');
-                            $('#RejectBugBtn').removeClass('d-none');
+                            $('#RejectBuBtn').removeClass('d-none');
                         }
                     }
 
@@ -480,10 +480,45 @@
             return false;
         }
 
-        function RejectBug() {
-            //<input class="btn btn-success col-md-2 align-content-end justify-content-end justify-content-md-end d-none" id="RejectBugBtn" onclick="RejectBug();" value="Reject Bug Fix" />
+        
 
+
+        function RejectBug() {
+            debugger;
+            var data = { 'bugId': bugId };
+
+            $.ajax({
+                type: "POST",
+                url: "bugDetails.aspx/RejectBugFix",
+                data: JSON.stringify(data),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    console.log(JSON.stringify(response));
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Bug fix is rejected successsfully !'
+                    });
+                    location.reload();
+                },
+                error: function (response) {
+                    console.log(JSON.stringify(response));
+                    showErrorMsg();
+                },
+                failure: function (response) {
+                    console.log(JSON.stringify(response));
+                    showErrorMsg()
+                }
+            });
+
+            return false;
         }
+
+
+        //function RejectBug() {
+        //    //<input class="btn btn-success col-md-2 align-content-end justify-content-end justify-content-md-end d-none" id="RejectBugBtn" onclick="RejectBug();" value="Reject Bug Fix" />
+
+        //}
 
     </script>
 </asp:Content>

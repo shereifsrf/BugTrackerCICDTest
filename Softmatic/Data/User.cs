@@ -176,7 +176,7 @@ namespace Softmatic.Data
                     user.role = reader["role"].ToString();
                     user.email = reader["email"].ToString();
                     user.createdOn = Convert.ToDateTime(reader["createdOn"].ToString());
-
+                    user.status = "True";
                     result.Add(user);
                 }
                 reader.Close();
