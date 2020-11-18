@@ -435,13 +435,14 @@ namespace Softmatic.Data
             return true;
         }
 
-        public static bool RejectBugFix(int bugId)
+        public static bool RejectBugFix(int bugId, int userId)
         {
             List<Model.Common.sqlParameter> parameters = new List<Model.Common.sqlParameter>();
 
             parameters.Add(new sqlParameter("@bugId", bugId));
+            parameters.Add(new sqlParameter("@userId", userId));
 
-            Data.Common.execSQLRetunResult("sp_ResolveBug @bugId, @isSuccess OUTPUT, @returnMsg OUTPUT, @returnValue OUTPUT", parameters, true);
+            Data.Common.execSQLRetunResult("sp_Rejectbug  @bugId, @userId", parameters, true);
             return true;
          }
 

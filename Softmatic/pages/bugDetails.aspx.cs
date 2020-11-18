@@ -150,5 +150,13 @@ namespace Softmatic.pages
             var reviewer = Convert.ToInt32(HttpContext.Current.Session["userId"]);
             return Data.Bug.AproveBugFix(bugId, reviewer);
         }
+
+        [WebMethod(EnableSession = true)]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public static bool RejectBugFix(int bugId)
+        {
+            var reviewer = Convert.ToInt32(HttpContext.Current.Session["userId"]);
+            return Data.Bug.RejectBugFix(bugId, reviewer);
+        }
     }
 }
