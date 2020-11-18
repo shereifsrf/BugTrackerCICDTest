@@ -18,6 +18,9 @@ namespace Softmatic.Model
             public DateTime createdOn { get; set; }
             public string createdBy { get; set; }
 
+            public string status { get; set; }
+
+
         }
 
         public class Inbox
